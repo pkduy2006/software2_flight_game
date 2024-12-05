@@ -46,7 +46,7 @@ Changes in the new game:
         * Level 5: 1 rocket will kill 600 enemies.
 - You can use the coins you obtained from killing your enemies.
 - You will be provided a level 1 fighter and an limited amount of gasoline.
-- Choose 40 large airports from Europe.
+- Choose all large airports from Europe.
 - When you arrive at an airport, you have 2 choices:
 	+ Destroy the airport.
     + Land.
@@ -67,4 +67,4 @@ Changes in the new game:
 - After you chose your base, the countries that your spies can obtain specific details will be calculated using the bfs algorithm
 min_dist = 1 => can get both details about enemies and fuels
 - min_dist = 2 => can get either enemies or fuels
-- min_dist > 3 => cant get any details
+- min_dist > 3 => cant get any details 
