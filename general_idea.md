@@ -23,7 +23,7 @@ Game:
 
 Changes in the new game:
 - Goals are still same to the old ones.
-- Instead of starting at a random airport, now you can choose where you want to start.
+- Instead of starting at a random airport, now you can choose where you want to start.// Not possible so your base is still selected randomly
 - Your target will be chosen based on your selection of your base.
 - The fighters will have 3 functions and each function has 5 levels:
 	+ Function 1: Fuel consumption
