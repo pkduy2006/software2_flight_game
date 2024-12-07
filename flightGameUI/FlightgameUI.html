@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Flight Simulation UI</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="ui-container">
+    <!-- Top Bar -->
+    <div class="top-bar">
+      <div class="fuel-status">Fuel Level: 58%</div>
+      <div class="trip-time">Trip Time: 8 hr 30 min</div>
+      <div class="altitude">Altitude: 10,100</div>
+      <div class="speed">Speed: 472</div>
+    </div>
+
+    <!-- Main Display -->
+    <div class="main-display">
+      <img src="BG.jpeg" alt="Airplane Model" class="airplane-image">
+      <div class="flight-path"></div>
+    </div>
+    <!-- Play Button -->
+    <div class="action-buttons">
+      <button class="btn play">Play</button>
+    </div>
+
+    <!-- Bottom Information Panel -->
+    <div class="info-panel">
+      <!-- Flight Details -->
+      <div class="flight-details">
+        <p>Flight: 004</p>
+        <p>Date: Aug 12, 9:26AM</p>
+      </div>
+
+      <!-- Location Info -->
+      <div class="location-info">
+        <p><strong>Location:</strong></p>
+        <p>ICAO Code: XYZ</p>
+        <p>Airport: Helsinki Vantaa</p>
+        <p>Municipality: Helsinki</p>
+        <p>Country: Finland</p>
+      </div>
+
+      <!-- Weather Info -->
+      <div class="weather-info">
+        <p><strong>Weather:</strong></p>
+        <p>Temperature: 22°C</p>
+        <p>Wind Speed: 15 km/h</p>
+        <p>Description: Clear skies</p>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
