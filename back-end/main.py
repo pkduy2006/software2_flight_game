@@ -1,9 +1,10 @@
 import mysql.connector
-from flask import Flask
+from flask import Flask, Response
 from airport import Airport
 from martyr import Martyr
 from geopy import distance
 import random
+import json
 
 app = Flask(__name__)
 
@@ -54,6 +55,7 @@ def get_airport_type():
     result = cursor.fetchall()
     return result
 
+@app.route('/find_target/base=<base>')
 def find_target(base):
     base_latitude_deg = None
     base_longitude_deg = None
@@ -63,12 +65,11 @@ def find_target(base):
             base_longitude_deg = airport['longitude_deg']
 
     for airport in airports:
-        if airport['ident'] != base and distance.distance((airport['latitude_deg'], airport['longitude_deg']), (base_latitude_deg, base_longitude_deg)).km < 1137:
+        if airport['ident'] != base and distance.distance((airport['latitude_deg'], airport['longitude_deg']), (base_latitude_deg, base_longitude_deg)).km > 1137:
             return airport['ident']
 
-@app.route('/set_up_airports/base=<base>')
-def set_up_airports(base):
-    target = find_target(base)
+@app.route('/set_up_airports/base=<base>&target=<target>')
+def set_up_airports(base, target):
     airport_id = 0
     airport_type = get_airport_type()
     for each in airport_type:
@@ -90,7 +91,7 @@ def get_monument_table():
     cursor.execute(sql)
     result = cursor.fetchall()
     for each in result:
-        martyr = Martyr(each['id'], each['martyr_name'], each['location'], each['total_enemy_killed'])
+        martyr = Martyr(each['id'], each['martyr_name'], each['location'], each['total_enemy_killed'], each['trip'])
         martyrs.append(martyr.combine_details())
     return martyrs
 
@@ -111,6 +112,42 @@ def get_distance(start, end):
     rounded_dist = round(dist, 1)
     response = {"Distance in km": rounded_dist}
     return response
+
+@app.route('/get_details_of_specific_airport/airport=<code>')
+def get_details_of_specific_airport(code):
+    try:
+        response = {}
+        for airport in airports:
+            if airport['ident'] == code:
+                response = airport
+        if response == {}:
+            raise Exception(ValueError)
+        else:
+            return response
+    except ValueError:
+        response = {"message": "Invalid ICAO code",
+                    "status": 400}
+        json_response = json.dumps(response)
+        http_response = Response(response = json_response, status = 400, mimetype = 'application/json')
+        return http_response
+
+@app.route('/details_of_loser/name=<name>&location=<location>&total_enemy_killed=<total_enemy_killed>&distance_travelled=<distance_travelled>')
+def insert_details_of_loser(name, location, total_enemy_killed, distance_travelled):
+    sql = """INSERT INTO monument(martyr_name, location, total_enemy_killed, distance_travelled) VALUES (%s, %s, %s, %s);"""
+    cursor = connection.cursor(dictionary = True)
+    cursor.execute(sql, (name, location, total_enemy_killed, distance_travelled))
+    response = {"message": "Successfully inserted",
+                "status": 200}
+
+    return response
+
+@app.errorhandler(404)
+def page_not_found(e):
+    response = {"message": "Invalid endpoint.",
+                "status": 404}
+    json_response = json.dumps(response)
+    http_response = Response(response = json_response, status = 404, mimetype = 'application/json')
+    return http_response
 
 if __name__ == '__main__':
     app.run(use_reloader = True, host = '127.0.0.1', port = 5000)
