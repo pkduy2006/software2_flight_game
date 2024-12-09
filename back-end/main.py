@@ -1,5 +1,7 @@
 import mysql.connector
 from flask import Flask, Response
+from flask_cors import CORS
+
 from airport import Airport
 from martyr import Martyr
 from geopy import distance
@@ -7,6 +9,7 @@ import random
 import json
 
 app = Flask(__name__)
+CORS(app)
 
 connection = mysql.connector.connect(
     host = '127.0.0.1',
@@ -91,7 +94,7 @@ def get_monument_table():
     cursor.execute(sql)
     result = cursor.fetchall()
     for each in result:
-        martyr = Martyr(each['id'], each['martyr_name'], each['location'], each['total_enemy_killed'], each['trip'])
+        martyr = Martyr(each['id'], each['martyr_name'], each['location'], each['total_enemy_killed'], each['distance_travelled'])
         martyrs.append(martyr.combine_details())
     return martyrs
 
@@ -139,6 +142,20 @@ def insert_details_of_loser(name, location, total_enemy_killed, distance_travell
     response = {"message": "Successfully inserted",
                 "status": 200}
 
+    return response
+
+@app.route('/locate/code=<code>')
+def locate(code):
+    sql = """SELECT airport.name as 'name', airport.municipality as 'municipality', country.name as 'country'
+    FROM airport, country
+    WHERE airport.iso_country = country.iso_country
+    AND airport.ident = %s;"""
+    cursor = connection.cursor(dictionary = True)
+    cursor.execute(sql, (code,))
+    result = cursor.fetchone()
+    response = {'Name': result['name'],
+                'Municipality': result['municipality'],
+                'Country': result['country']}
     return response
 
 @app.errorhandler(404)
