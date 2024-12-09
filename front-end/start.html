@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Flight Simulator Game</title>
+  <link rel="stylesheet" href="css/style.css">
+  <script src="js/start.js" defer></script>
+</head>
+<body>
+  <div class="ui-container">
+    <!-- Top Bar -->
+    <div class="top-bar">
+      <div class="fuel-status">Fuel: 0 L</div>
+      <div class="trip-time">Trip: 0 km</div>
+      <div id="time"></div>
+      <div id="date"></div>
+    </div>
+
+    <!-- Main Display -->
+    <div class="main-display">
+      <img src="image/BG.jpeg" alt="Airplane Model" class="airplane-image">
+      <div class="flight-path"></div>
+    </div>
+    <!-- Play Button -->
+    <div class="action-buttons" id="start-button">
+      <a href="about.html"><button class="btn play">Start</button></a>
+    </div>
+
+    <!-- Bottom Information Panel -->
+    <div class="info-panel">
+      <!-- Flight Details -->
+      <div class="player-info">
+        <p>Name: </p>
+        <p>Mission completed: No</p>
+      </div>
+
+      <div class="base-info">
+        <p><strong>Base: </strong></p>
+        <p>ICAO: EFOU</p>
+        <p>Name: Oulu Airport</p>
+        <p>Municipality: </p>
+        <p>Country: </p>
+      </div>
+
+      <div class="target-info">
+        <p><strong>Target: </strong></p>
+        <p>ICAO: </p>
+        <p>Name: </p>
+        <p>Municipality: </p>
+        <p>Country: </p>
+      </div>
+
+      <!-- Location Info -->
+      <div class="location-info">
+        <p><strong>Location:</strong></p>
+        <p>ICAO: XYZ</p>
+        <p>Name: Helsinki Vantaa Airport</p>
+        <p>Municipality: Vantaa</p>
+        <p>Country: Finland</p>
+      </div>
+
+      <!-- Weather Info -->
+      <div class="weather-info">
+        <p><strong>Weather:</strong></p>
+        <p>Temperature: 22°C</p>
+        <p>Wind Speed: 15 km/h</p>
+        <p>Description: Clear skies</p>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
