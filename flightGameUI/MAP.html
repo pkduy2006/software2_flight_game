@@ -1,10 +1,87 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Flight Simulation UI</title>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css">
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    /* Style for the map */
+    #map {
+      height: 400px; /* Adjust height as needed */
+      width: 100%; /* Full width */
+    }
+
+    .main-display {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin: 20px 0;
+    }
+  </style>
 </head>
 <body>
+  <div class="ui-container">
+    <!-- Top Bar -->
+    <div class="top-bar">
+      <div class="fuel-status">Fuel Level: 58%</div>
+      <div class="trip-time">Trip Time: 8 hr 30 min</div>
+      <div class="altitude">Altitude: 10,100</div>
+      <div class="speed">Speed: 472</div>
+    </div>
 
+    <!-- Main Display -->
+    <div class="main-display">
+      <div id="map"></div>
+    </div>
+
+    <!-- Play Button -->
+    <div class="action-buttons">
+      <button class="btn play">Play</button>
+    </div>
+
+    <!-- Bottom Information Panel -->
+    <div class="info-panel">
+      <!-- Flight Details -->
+      <div class="flight-details">
+        <p>Flight: 004</p>
+        <p>Date: Aug 12, 9:26AM</p>
+      </div>
+
+      <!-- Location Info -->
+      <div class="location-info">
+        <p><strong>Location:</strong></p>
+        <p>ICAO Code: XYZ</p>
+        <p>Airport: Helsinki Vantaa</p>
+        <p>Municipality: Helsinki</p>
+        <p>Country: Finland</p>
+      </div>
+
+      <!-- Weather Info -->
+      <div class="weather-info">
+        <p><strong>Weather:</strong></p>
+        <p>Temperature: 22°C</p>
+        <p>Wind Speed: 15 km/h</p>
+        <p>Description: Clear skies</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Leaflet JS -->
+  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+  <script>
+    // Initialize the map
+    const map = L.map('map').setView([60.3172, 24.9633], 13); // Coordinates for Helsinki Vantaa Airport
+
+    // Add OpenStreetMap tiles
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+    }).addTo(map);
+
+    // Add a marker for the location
+    const marker = L.marker([60.3172, 24.9633]).addTo(map);
+    marker.bindPopup("<b>Helsinki Vantaa Airport</b>").openPopup();
+  </script>
 </body>
 </html>
